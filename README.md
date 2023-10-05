@@ -3,7 +3,7 @@ Letterbox Solver
 
 Python3
 Supply two parameters:
- `--puzzle` the "edges of the puzzle. Each edge is a string and the edges are separated by hyphens: e.g. `--puzzle=tlk-ons-ubi-awe`
+ `--puzzle` the edges of the puzzle. Each edge is a string and the edges are separated by hyphens: e.g. `--puzzle=tlk-ons-ubi-awe`
  `--dictionary` newline-separated list of valid words. Defaults to `words.txt`
 
 Run the program with the parameters, and it will produce an exhaustive list of solutions. For the above example, the output is:
