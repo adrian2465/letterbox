@@ -29,9 +29,9 @@ class Letterbox:
 
     def __init__(self, letterbox_string, all_words_from_dictionary):
         letterbox = list()
-        corners = letterbox_string.split("-")
-        for corner in corners:
-            letterbox.append([c for c in corner])
+        edges = letterbox_string.split("-")
+        for edge in edges:
+            letterbox.append([c for c in edge])
         self._flattened_letterbox = set()
         for edge in letterbox:
             self._flattened_letterbox = self._flattened_letterbox.union(edge)
@@ -109,7 +109,7 @@ class Letterbox:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Solve Letterbox Puzzle")
-    parser.add_argument('--puzzle', help='Dash-separated list of strings representing the corners of the puzzle. For example asd-feg-jiy-uiu', required=True)
+    parser.add_argument('--puzzle', help='Dash-separated list of strings representing the edges of the puzzle. For example asd-feg-jiy-uiu', required=True)
     parser.add_argument('--dictionary', help='Dictionary (list of words)', default="words.txt")
     args = parser.parse_args()
     with open(args.dictionary, "r") as f:
