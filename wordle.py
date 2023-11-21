@@ -3,7 +3,6 @@ import random
 
 debug = False
 
-
 class Wordle:
 
     def __init__(self, possibilities):
@@ -53,22 +52,14 @@ class Wordle:
         for i in range(0, len(clue)):
             # Filter wordlist to remove words which do not have the correct letter in the correct place.
             if 'A' <= clue[i] <= 'Z':
-                self.possibilities = [self.possibilities[j]
-                                      for j in range (0, len(self.possibilities))
-                                      if self.guess[i] == self.possibilities[j][i]]
+                self.possibilities = [p for p in self.possibilities if self.guess[i] == p[i]]
             elif 'a' <= clue[i] <= 'z':
-                self.possibilities = [self.possibilities[j]
-                                      for j in range (0, len(self.possibilities))
-                                      if self.guess[i] in self.possibilities[j]
-                                      and self.possibilities[j][i] != clue[i]]
+                self.possibilities = [p for p in self.possibilities if self.guess[i] in p and p[i] != clue[i]]
             if  clue[i] == '-':
                 self.exclude_list[i] = f"{self.exclude_list[i]}{self.guess[i]}"
-
-        for i in range(0, len(self.exclude_list)):
-            # Filter wordlist to remove words not containing the missing dashed letters.
-            self.possibilities = [self.possibilities[j]
-                                  for j in range (0, len(self.possibilities))
-                                    if len(set(self.possibilities[j]) & set(self.exclude_list[i])) == 0 ]
+        # Filter wordlist to remove words not containing the missing dashed letters.
+        for x in self.exclude_list:
+            self.possibilities = [p for p in self.possibilities if len(set(p) & set(x)) == 0]
 
     @staticmethod
     def count(char, word):
@@ -80,9 +71,8 @@ class Wordle:
         return i
 
     def generate_new_guess(self):
-        list_to_try = [ self.possibilities[j] for j in range(0, len(self.possibilities)) if Wordle.has_repeats(self.possibilities[j])]
-        if len(list_to_try) == 0:
-            list_to_try = self.possibilities
+        list_to_try = [p for p in self.possibilities if not Wordle.has_repeats(p)]  # Prefer non-repeats
+        if len(list_to_try) == 0: list_to_try = self.possibilities
         self.guess = random.choice(list_to_try)
 
     @staticmethod
