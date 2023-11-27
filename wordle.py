@@ -3,6 +3,13 @@ import random
 
 debug = False
 
+# TODO FIXME November 27, 2023:
+#   Example of November 27, 2023 (human guesses, actual wordle responses)
+#   ADIEU a----
+#   CLOAK ---a-
+#   SHARP --a--
+#   FATTY -At-Y  <<< Notice that with a two-T guess, only one T is shown as being correct. In this program, the answer to that clue would eliminate T for contention.
+#   TAWNY TAWNY
 class Wordle:
 
     def __init__(self, possibilities):
